@@ -7,7 +7,7 @@
 ```
 ## Config Options
 * supybot.plugins.Runsbot.allPlays
-* * Will announce allPlays (only recommended when in team specific channel)
+ * Will announce allPlays (only recommended when in team specific channel)
 * supybot.plugins.Runsbot.checkInterval
 * supybot.plugins.Runsbot.dateFlip
 * supybot.plugins.Runsbot.isDebug
