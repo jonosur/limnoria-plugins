@@ -6,5 +6,5 @@
 
 Here are a few Limnoria/Supybot plugins I've forked or developed.
   
-[What is Limnoria](https://limnoria.net/)  
+[What is Limnoria?](https://limnoria.net/)  
 ```Limnoria is a multipurpose Python IRC bot, designed for flexibility and robustness, while being easy to install, set up, and maintain.```
