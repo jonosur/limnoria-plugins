@@ -52,7 +52,6 @@ NHLLottery = conf.registerPlugin('NHLLottery')
 # This is where your configuration variables (if any) should go.  For example:
 # conf.registerGlobalValue(NHLLottery, 'someConfigVariableName',
 #     registry.Boolean(False, _("""Help for someConfigVariableName.""")))
-conf.registerGlobalValue(NHLLottery, "maxlines", registry.NonNegativeInteger(10, "Maximum number of lottery results to show or 0 for no limit"))
-conf.registerGlobalValue(NHLLottery, 'truncated', registry.Boolean('True', _("""This will determine whether or not to show the output truncated line.""")))
-conf.registerGlobalValue(NHLLottery, "default", registry.NonNegativeInteger(5, "Default number of lottery results to show"))
+
+
 # vim:set shiftwidth=4 tabstop=4 expandtab textwidth=79:
