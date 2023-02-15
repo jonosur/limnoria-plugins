@@ -27,7 +27,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 ###
-
 import requests
 from bs4 import BeautifulSoup
 import supybot.utils as utils
@@ -76,14 +75,20 @@ class RotoNews(callbacks.Plugin):
         players = []
         for each in scontent['players']:
             players.append('{}'.format(each['name']))
+        if len(players) == 0:
+            irc.reply("No RotoWire news found for {}".format(player.title()))
+            return
         url = "http://www.rotowire.com/{}".format(scontent['players'][0]['link'])
         content = requests.get(url)
         soup = BeautifulSoup(content.text, "html.parser")
-        name = soup.find("h1", { "class" : "p-card__player-name" }).text
-        age = soup.find("div", { "class" : "p-card__player-info" }).div.get_text().split(' ')[0]
-        pos = soup.find("div", { "class" : "p-card__player-info" }).span.text
-        info = soup.find("div", { "class" : "p-card__player-info" }).a.text
-        irc.reply("\x1F\x02{} - {} {} for {}".format(name, age, pos, info))
+        try:
+            name = soup.find("h1", { "class" : "p-card__player-name" }).text
+            age = soup.find("div", { "class" : "p-card__player-info" }).div.get_text().split(' ')[0]
+            pos = soup.find("div", { "class" : "p-card__player-info" }).span.text
+            info = soup.find("div", { "class" : "p-card__player-info" }).a.text
+            irc.reply("\x1F\x02{} - {} {} for {}".format(name, age, pos, info))
+        except:
+            pass
         news = soup.find_all("div", { "class" : "news-update__main" })
         news = self.remove_duplicates(news)
         for item in news[:3]:
@@ -91,8 +96,6 @@ class RotoNews(callbacks.Plugin):
             date = datetime.strptime(str(latest_date.text), "%B %d, %Y").strftime("%m/%d/%Y")
             latest_news = item.find("div", { "class" : "news-update__news" })
             irc.reply("\x02{}:\x0F {}".format(date, latest_news.text))
-        if len(news) == 0:
-            irc.reply("No RotoWire news found for {}, Suggestion: {}".format(player.title(), ' | '.join(players)))
     rotowire = wrap(rotowire, (['text']))
 
 Class = RotoNews
