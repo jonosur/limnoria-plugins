@@ -1,5 +1,5 @@
 ###
-# Copyright (c) 2017, Jonathan "grateful" Surman
+# Copyright (c) 2017, grateful 
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,14 +28,6 @@
 
 ###
 import requests
-import time
-import datetime
-import re
-import urllib.request as urlreq
-import urllib.parse as urlparse
-import urllib
-import supybot.ircdb as ircdb
-import supybot.schedule as schedule
 
 import supybot.utils as utils
 from supybot.commands import *
@@ -50,43 +42,14 @@ except ImportError:
     # Placeholder that allows to run the plugin on a bot
     # without the i18n module
     _ = lambda x: x
-
-# User-Agent field to send when downloading url (some pages require one of firefox, chrome, ie etc.)
-_USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
-# Accept-Language field to send when downloading url (this one should be fine, english - USA)
-_ACCEPT_LANGUAGE = "en-US;q=0.7,en;q=0.3"
-# time in seconds to keep data in cache
-_CACHE_TIME = 300
-# number of download cache slots
-_CACHE_SLOTS = 50
-# don't cache download if number of characters is greater this one (prevents caching very large pages)
-_CACHE_MAXCHARS = 50000
-# if UTF-8 decoding of downloaded data fails, use this one (west european i think)
-# will cause some garbage/weird letters for non-ascii (>127) characters, but usually is fine
-_FAILSAFE_HTTP_ENCODING = "ISO-8859-1"
-# download result: success
-DL_OK = 0
-# download result: error 404: Not Found
-DL_HTTP404 = 1
-# download result: some other http error (ie. 5xx - server failure)
-DL_HTTP_ERROR = 2
-# download result: general network-level error (ie. non-existent url or no route to host)
-DL_NET_ERROR = 3
-# download result: other errors - for example out of memory, system socket failure
-DL_OS_ERROR = 4
-
+    
 class Injuries(callbacks.Plugin):
-    """Returns NHL Injuries from RotoWorld"""
+    """Returns Injuries from RotoWire"""
     threaded = True
 
     def __init__(self, irc):
-        # set __parent - double _ means that coder really really doesn't it to be accessed out
-        # of script. __parent will hold parent class - which is "callbacks.Plugin"
         self.__parent = super(Injuries, self)
-        # call parent's init method - so plugin is initiated properly
         self.__parent.__init__(irc)
-
-=
 
     def injuries(self, irc, msg, args, league, team):
         """[league] [team]
@@ -95,7 +58,7 @@ class Injuries(callbacks.Plugin):
         team = team.upper()
         league = league.upper()
         nhl = ["ANA","BOS","BUF","CGY","CAR","CHI","COL","CBJ","DAL","DET","EDM","FLA","LAK","MIN","MTL",
-        "NSH","NJD","NYI","NYR","OTT","PHI","ARI","PIT","STL","SJS","TBL","TOR","VAN","WSH","WPG"]
+        "NSH","NJD","NYI","NYR","OTT","PHI","ARI","PIT","STL","SJS","TBL","TOR","VAN","WSH","WPG","SEA"]
         mlb = ["BOS","NYY","ARI","ATL","BAL","CHC","CWS","CIN","CLE","COL","DET","MIA","HOU",
         "KC","LAA","LAD","MIL","MIN","NYM","OAK","PHI","PIT","SD","SF","SEA","STL","TB","TEX","TOR","WSH"]
         nba = ["ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAK",
