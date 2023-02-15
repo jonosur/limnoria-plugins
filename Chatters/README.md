@@ -1,4 +1,4 @@
-Returns the Top Chatters based on words written.
+Returns the Top Chatters based on words written for today's date only.
 
 ## Chatters
 
